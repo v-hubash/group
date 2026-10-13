@@ -51,7 +51,6 @@ def forum_home(request):
 
 def thread_detail(request, thread_id):
     thread = get_object_or_404(Thread, id=thread_id)
-    posts = thread.posts.all().order_by('created_at')
 
     if request.method == 'POST' and request.user.is_authenticated:
         post_form = PostForm(request.POST, request.FILES)
@@ -64,7 +63,7 @@ def thread_detail(request, thread_id):
     else:
         post_form = PostForm()
 
-    return render(request, 'forum/thread_detail.html', {'thread': thread, 'posts': posts, 'post_form': post_form})
+    return render(request, 'forum/thread_detail.html', {'thread': thread,  'post_form': post_form})
 
 @user_passes_test(is_staff_user)
 def thread_create(request):
@@ -112,3 +111,6 @@ def dislike_post(request, post_id):
         post.likes.remove(request.user)
         post.dislikes.add(request.user)
     return redirect('thread_detail', thread_id=post.thread.id)
+
+
+

@@ -24,7 +24,7 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
     dislikes = models.ManyToManyField(User, related_name='forum_dislikes', blank=True)
     views_count = models.PositiveIntegerField(default=0, verbose_name="Кількість переглядів")
-
+    
     def total_likes(self):
         return self.likes.count()
     

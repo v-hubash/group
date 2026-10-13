@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from . import api_views
 urlpatterns = [
     path('', views.forum_home, name='forum_home'),
     path('thread/<int:thread_id>/', views.thread_detail, name='thread_detail'),
@@ -9,4 +9,6 @@ urlpatterns = [
     path('thread/<int:thread_id>/delete/', views.delete_thread, name='delete_thread'),
     path('post/<int:post_id>/like/', views.like_post, name='like_post'),
     path('post/<int:post_id>/dislike/', views.dislike_post, name='dislike_post'),
+    # API views
+    path('api/thread/<int:thread_id>/posts', api_views.PostListAPIView.as_view(), name='api_post_list')
 ]
